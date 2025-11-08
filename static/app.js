@@ -1,8 +1,8 @@
 export let  Data = null
 import { ce  , div , button , input}  from "./createlem.js"
 import { GenerateToken  } from "./api.js"
-import  { Auth } from "./Auth.js"
-import { query } from "./Query.js"
+import  { Auth } from "./auth.js"
+import { query } from "./query.js"
 
 export function login() {
     const body = document.body
