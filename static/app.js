@@ -11,7 +11,7 @@ export function login() {
     const container = div('container-login container-login2')
 
     const left = div('left').append(
-        ce('img', '').setAtr('src', './images/undraw_login_weas.svg').setAtr('alt', 'Login Image')
+        ce('img', '').setAtr('src', './assets/imgs/login_img.svg').setAtr('alt', 'Login Image')
     )
     const right = div('right').append(
         ce('h2', '', 'Member Login'),
@@ -71,7 +71,7 @@ try {
    body.innerHTML = "" 
     const header = div("header").append(
             div("logo", '').append(
-                ce('img', '').setAtr('src', './images/LOGO.svg').setAtr('alt', 'Logo')
+                ce('img', '').setAtr('src', './assets/imgs/logo.svg').setAtr('alt', 'Logo')
             ),
             div("nav")
                 .append(
