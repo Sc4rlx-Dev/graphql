@@ -26,9 +26,9 @@ export function query() {
     }
   }
 }
-`};
+`}
 
-
+// Hada huwa l-query l-akhor, walakin bghit n-exportih bo7do
 export const GET_XP = `{
   transaction_aggregate(
     where: {type: {_eq: "xp"}, eventId: {_eq: 41}}

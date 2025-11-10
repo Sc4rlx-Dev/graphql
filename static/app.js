@@ -2,7 +2,7 @@ export let Data = null
 import { ce, div, button, input } from "./createlem.js"
 import { GenerateToken } from "./api.js"
 import { Auth } from "./auth.js"
-import { query , GET_XP } from "./query.js"
+import { query } from "./query.js"
 
 export function login() {
     const body = document.body
@@ -17,7 +17,8 @@ export function login() {
 
 
 function createLoginForm() {
-    const errorP = ce('p', 'error', 'Your email and password is required').setAtr('style', 'display: none') // Kan zido l-error element walakin kan khabbiwh
+    // HADA HUWA L-KHATA2 LI KAN (setS -> setAtr)
+    const errorP = ce('p', 'error', 'Your email and password is required').setAtr('style', 'display: none') 
     const loginBtn = button('login-btn', 'LOGIN')
     loginBtn.addEventListener('click', () => {
         const rightDiv = loginBtn.parentElement
@@ -51,61 +52,30 @@ export async function Homepage() {
     body.removeAttribute('class')
     body.innerHTML = "<h1>Loading...</h1>" 
 
-    const userData = await fetchUserData()
-    const Xp  =  await fetchxp()    
-     const Xpamount = (Xp.transaction_aggregate.aggregate.sum.amount/1000)   
+    const userData = await fetchUserData() 
+        
     if (!userData) {
-        login()
+        login() 
         return
     }
 
-    Data = userData
+    Data = userData 
     body.innerHTML = "" 
-
 
     const header = createHeader()
     const dashboard = createDashboardContainer()
-    const xpInfoBox = XpAmount(Xpamount)
     
-    body.append(header, ce('br'), dashboard, xpInfoBox)
+    body.append(header, ce('br'), dashboard)
 
-    CercleSvg()
-//   let Xp =   getxps(Data)
-//   console.log(Xp,"---------");
-  
-//        XpAmount(Xp)
+    CercleSvg() 
+    getxps(Data) 
 
-}
-export async function fetchxp() {
-    const savedToken = localStorage.getItem('token');
-    //if (!savedToken) handleLogout();
+    const xpInfoBox = XpAmount() 
+    body.append(xpInfoBox)
 
-    try {
-       const body = { query: GET_XP };
-
-        console.log(body,"--***");
-        
-
-        const response = await fetch('https://learn.zone01oujda.ma/api/graphql-engine/v1/graphql', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${savedToken}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        });
-
-        if (!response.ok) throw new Error('error');
-
-        const data = await response.json();
-        console.log(data);
-        
-        return data.data;
-
-    } catch (error) {
-      //  handleLogout();
-        console.error('GraphQL query error:', error);
-    }
+    // Kan zid l-class hna, melli l-header w l-button kaynin
+    const homeBtn = document.querySelector('.home-btn');
+    if (homeBtn) homeBtn.classList.add('window_active');
 }
 
 async function fetchUserData() {
@@ -156,7 +126,7 @@ function createHeader() {
 }
 
 function createDashboardContainer() {
-    return div('Container', '').append(
+    const container = div('Container', '').append(
         div('polygone-section fade-in delay-2').append(
             ce('h1', '', 'Best skills'),
             ce('section', '', '').setAtr('id', 'polygone')
@@ -171,6 +141,7 @@ function createDashboardContainer() {
             )
         )
     )
+    return container;
 }
 
 
@@ -185,14 +156,25 @@ function Profile() {
         login()
         return
     }
-    document.querySelector('.profile-btn').classList.add('window_active')
-    document.querySelector('.home-btn').classList.toggle("window_active")
+    
+    const homeBtn = document.querySelector('.home-btn');
+    if (homeBtn) homeBtn.classList.remove('window_active');
+    const profileBtn = document.querySelector('.profile-btn');
+    if (profileBtn) profileBtn.classList.add('window_active');
+
+
     let body = document.body
+    
+    let Container = document.querySelector('.Container')
+    if (Container) Container.remove();
+
+    let xpInfo = document.querySelector('#XPINFO');
+    if (xpInfo) xpInfo.remove();
+
     if (body.querySelector('.profile')) {
         body.querySelector('.profile').remove()
     }
-    let Container = document.querySelector('.Container')
-    Container.innerHTML = ""
+
     let profile = div("profile").append(
         ce('section', 'profile-header').append(
             ce('h1', '', 'Profile'),
@@ -226,7 +208,7 @@ function Profile() {
     let prfxp = div('profile-xp').append(
         ce('section', 'Xp').append(
             ce('p', '', 'XP Amount'),
-            ce('h2', '', `${Math.round(XPS / 1000)}KB`)
+            ce('h2', '', `${Math.round(XPS / 1000)}KB`) 
         ),
         ce('section', 'Xp').append(
             ce('p', '', 'Username'),
@@ -234,7 +216,13 @@ function Profile() {
         )
     )
     profile.append(prfxp)
-    Container.append(profile)
+    
+    const header = document.querySelector('.header');
+    if (header) {
+        header.insertAdjacentElement('afterend', profile);
+    } else {
+        body.append(profile);
+    }
 }
 
 function CercleSvg() {
@@ -275,7 +263,6 @@ function CercleSvg() {
         ring.setAttribute("cy", centerY)
         ring.setAttribute("r", r)
         ring.setAttribute("fill", "none")
-        ring.setAttribute("stroke", "#ddd")
         ring.setAttribute("stroke-width", "0.5")
         ring.setAttribute("stroke-dasharray", "2,2")
         svg.appendChild(ring)
@@ -292,7 +279,6 @@ function CercleSvg() {
         circle.setAttribute("cx", x)
         circle.setAttribute("cy", y)
         circle.setAttribute("r", 5)
-        circle.setAttribute("fill", "#00c6ff")
         svg.appendChild(circle)
 
         const label = document.createElementNS(svgNS, "text")
@@ -319,21 +305,25 @@ function CercleSvg() {
         line.setAttribute("y1", points[i].y)
         line.setAttribute("x2", points[next].x)
         line.setAttribute("y2", points[next].y)
-        line.setAttribute("stroke", "#4d4b4b")
         line.setAttribute("stroke-width", "1")
         svg.appendChild(line)
     }
 }
+
+let XPS = 0 
+
 function getxps(data) {
     let xps = data.user[0].xps
 
     XPS = xps.filter((xp) => (!xp.path.includes("piscine-") || xp.path == "/oujda/module/piscine-js")).map(xp => xp.amount).reduce((a, b) => a + b, 0)
+    
     let xpsAMount = xps.filter((xp) => (!xp.path.includes("piscine") && xp.path.split("/").length == 4)).filter((xp) => xp.amount > 0)
-    let somme = parseInt(xpsAMount.map(xp => xp.amount).reduce((a, b) => a + b, 0))
-    somme = somme / 1000
+    
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
     svg.setAttribute("id", "svgChart200")
     let section = document.querySelector(".CercleSvg")
+    if (!section) return; 
+
     const height = 300
     const padding = 50
     const minBarWidth = 40
@@ -349,7 +339,9 @@ function getxps(data) {
     const chartHeight = height - 2 * padding
     if (maxXP === 0) {
         console.error("Maximum XP value is 0, cannot create chart.")
-        svg.innerHTML = "Maximum XP value is 0, cannot create chart."
+        svg.innerHTML = "<text x='10' y='50' fill='var(--text-color)'>No XP project data to display.</text>" 
+        section.innerHTML = ""
+        section.append(svg)
         return
     }
     xpsAMount.forEach((xp, index) => {
@@ -362,39 +354,37 @@ function getxps(data) {
         bar.setAttribute("y", y)
         bar.setAttribute("width", barWidth)
         bar.setAttribute("height", barHeight)
-        bar.setAttribute("fill", "green")
         svg.append(bar)
 
         const prjn = document.querySelector('.projectname'); const xpAmount = document.querySelector('#projectxp')
         bar.addEventListener("mouseover", () => {
-            bar.setAttribute("fill", "#00b894")
-            prjn.textContent = xp.path.split("/").pop() + "  " + ""
-            xpAmount.textContent = `${Math.round(amount)}KB`
+            if(prjn) prjn.textContent = xp.path.split("/").pop() + "  " + ""
+            if(xpAmount) xpAmount.textContent = `${Math.round(amount)}KB`
         })
         bar.addEventListener("mouseout", () => {
-            bar.setAttribute("fill", "green")
-            prjn.textContent = "Hover over a bar to see the project Information"; xpAmount.textContent = ""
+            if(prjn) prjn.textContent = "Hover over a bar to see the project Information"
+            if(xpAmount) xpAmount.textContent = ""
         })
     })
 
     section.innerHTML = ""
     section.append(svg)
-    return somme
 }
 
 window.addEventListener("resize", () => {
-    CercleSvg()
-    getxps(Data)
+    if (Data) {
+        CercleSvg()
+        getxps(Data)
+    }
 })
 
-function XpAmount(XPS) {
-    
+function XpAmount() {
     let Container = document.createElement("div")
     Container.setAttribute("id", "XPINFO")
     Container.append(
         div("XpAmount").append(
             ce('h1', ',', 'Xp Amount'),
-            ce('span', '', `${Math.round(XPS )}KB`)
+            ce('span', '', `${Math.round(XPS / 1000)}KB`)
         ),
         div("User").append(
             ce('h1', '', 'Login'),

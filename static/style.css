@@ -238,17 +238,17 @@ body {
 
 /* Kan beddlo l-alwan dyal l-graphs hna */
 #svgChart100 circle {
-  fill: var(--primary-color); /* L-points dyal l-graph */
+  fill: #00eeff54; /* Changed to pink for graph points */
 }
 #svgChart100 line {
-  stroke: var(--card-border); /* L-khyout */
+  stroke: #000000; /* Changed to blue for lines */
 }
 #svgChart100 text {
-  fill: var(--text-color); /* L-ktaba dyal l-graph */
+  fill: #000000; /* Changed to yellow for graph text */
   font-family: var(--font-body);
 }
 #svgChart100 circle[fill="none"] {
-  stroke: var(--card-border); /* L-dwayer l-kbira */
+  stroke: #ff00cc; /* Changed to pink for large circles */
 }
 
 
@@ -381,7 +381,7 @@ svg {
     display: none;
   }
   .profile-xp {
-    display: flex;
+    display: flex !important; /* Kan forciwh yban f mobile */
   }
 }
 
@@ -399,4 +399,142 @@ svg {
 
 .profile-xp {
     display: none;
+}
+
+/* --- 3. Profile Page Design (CODE JDIID) --- */
+/* Had l-code zayda bach tkhdem l-page dyal Profile */
+
+.profile {
+  background: var(--card-background, rgba(10, 10, 30, 0.7));
+  border: 1px solid var(--card-border, rgba(0, 255, 255, 0.2));
+  backdrop-filter: blur(10px);
+  max-width: 1300px;
+  margin: 20px auto;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 0 30px 5px var(--primary-glow, rgba(0, 255, 255, 0.3));
+  animation: fadeSlideIn 0.6s ease-out;
+  color: var(--text-color, #f0f0f0);
+}
+
+/* Profile Header */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--card-border, rgba(0, 255, 255, 0.2));
+}
+
+.profile-header img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  border: 1px solid var(--card-border, rgba(0, 255, 255, 0.2));
+}
+
+.profile-header h1 {
+  font-family: var(--font-title, 'Orbitron', sans-serif);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--primary-color, #00ffff);
+  text-shadow: 0 0 10px var(--primary-glow, rgba(0, 255, 255, 0.3));
+}
+
+/* Profile Body */
+.profile-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.profile-body section {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--card-border, rgba(0, 255, 255, 0.2));
+  border-radius: 8px;
+  padding: 20px;
+  text-align: left;
+}
+
+.profile-body .name {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 20px;
+}
+
+.audit-email {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.profile-body section p {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.9rem;
+  color: var(--text-secondary, #aaaaaa);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-body section h2 {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-color, #00ffff); /* Glowing text */
+  text-shadow: 0 0 5px var(--primary-glow, rgba(0, 255, 255, 0.3));
+}
+
+.profile-body section img {
+  width: 20px;
+  height: 20px;
+  border-radius: 0;
+  margin-bottom: 0;
+  opacity: 0.7;
+  filter: invert(1);
+}
+
+/* XP / Username (f mobile) */
+.profile-xp {
+  /* display: none; */ /* 7ayyedt hada bach yban */
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.profile-xp .Xp p {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.9rem;
+  color: var(--text-secondary, #aaaaaa);
+}
+.profile-xp .Xp h2 {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 1.5rem;
+  color: var(--primary-color, #00ffff);
+  text-shadow: 0 0 5px var(--primary-glow, rgba(0, 255, 255, 0.3));
+}
+.profile-xp .Xp:last-child h2 {
+  color: var(--text-color, #f0f0f0);
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-shadow: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .profile-body,
+  .audit-email,
+  .profile-xp {
+    grid-template-columns: 1fr;
+  }
+  .profile-body .name {
+    flex-direction: column;
+  }
 }
