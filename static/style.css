@@ -1,0 +1,402 @@
+/* --- Global Styles & Font --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+:root {
+  --primary-color: #00ffff; /* Lon dyal l-Neon (Cyan/Blue) */
+  --primary-glow: rgba(0, 255, 255, 0.3);
+  --background-color: #0a0a1a; /* Khalfia K7la (Dark blue/black) */
+  --card-background: rgba(10, 10, 30, 0.7); /* L-cards b7al "Glass" (Zzaj) */
+  --card-border: rgba(0, 255, 255, 0.2);
+  --text-color: #f0f0f0;
+  --text-secondary: #aaaaaa;
+  --font-title: 'Orbitron', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background-color);
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.02) 1px, transparent 0);
+  background-size: 20px 20px;
+  color: var(--text-color);
+  font-family: var(--font-body);
+}
+
+/* --- 1. Login Page Design --- */
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.container-login {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 900px;
+  max-width: 95%;
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  box-shadow: 0 0 30px 5px var(--primary-glow); /* Glowing effect l-container kaml */
+  overflow: hidden;
+  animation: fadeSlideIn 0.8s ease-out;
+  backdrop-filter: blur(10px); /* Glassmorphism effect */
+}
+
+.left {
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.left img {
+  width: 100%;
+  max-width: 400px;
+  opacity: 0.8;
+}
+
+.right {
+  padding: 50px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.right h2 {
+  font-family: var(--font-title);
+  font-size: 2.2rem;
+  color: var(--primary-color);
+  margin-bottom: 25px;
+  text-shadow: 0 0 10px var(--primary-glow); /* Glowing text */
+}
+
+.right input {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--text-color);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.right input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 15px var(--primary-glow); /* Glowing border 3la focus */
+}
+
+.error {
+  color: #ff4d4d;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  min-height: 1.2em;
+}
+
+.login-btn {
+  font-family: var(--font-title);
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  color: #0a0a1a;
+  background: var(--primary-color);
+  cursor: pointer;
+  box-shadow: 0 0 20px var(--primary-glow); /* Glowing button */
+  transition: all 0.2s;
+}
+
+.login-btn:hover {
+  background: #fff;
+  color: #000;
+  box-shadow: 0 0 30px 5px var(--primary-glow);
+}
+.login-btn:active {
+  transform: scale(0.98);
+}
+
+/* --- 2. Dashboard Design --- */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(10px);
+  padding: 16px 32px;
+  border-radius: 12px;
+  margin: 20px auto;
+  width: 95%;
+  max-width: 1300px;
+  position: sticky;
+  top: 20px;
+  z-index: 100;
+}
+
+.logo img {
+  height: 40px;
+  filter: drop-shadow(0 0 10px var(--primary-glow)); /* Glowing logo */
+}
+
+.nav {
+  display: flex;
+  gap: 12px;
+}
+
+.nav-btn {
+  font-family: var(--font-title);
+  font-size: 1rem;
+  background: transparent;
+  color: var(--text-secondary);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nav-btn:hover {
+  color: var(--primary-color);
+  text-shadow: 0 0 10px var(--primary-glow);
+}
+
+.nav-btn.window_active {
+  color: var(--primary-color);
+  background: var(--primary-glow);
+  border-color: var(--card-border);
+  text-shadow: 0 0 10px var(--primary-glow);
+}
+
+.logout-btn {
+  color: #ff4d4d;
+}
+.logout-btn:hover {
+  color: #ff8a8a;
+  text-shadow: 0 0 10px rgba(255, 77, 77, 0.5);
+}
+
+/* Dashboard Container */
+.Container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 24px;
+  max-width: 1300px;
+  margin: 20px auto;
+}
+
+/* L-Cards dyal l-Graphs */
+.polygone-section,
+.Chart-section {
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.polygone-section:hover,
+.Chart-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px var(--primary-glow); /* Glowing 3la hover */
+}
+
+.polygone-section h1,
+.Chart-section h1 {
+  font-family: var(--font-title);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+/* SVG Graphs */
+#polygone,
+#CercleSvgSetion,
+.CercleSvg {
+  width: 100%;
+  min-height: 300px;
+  max-height: 400px;
+  overflow: visible;
+}
+
+/* Kan beddlo l-alwan dyal l-graphs hna */
+#svgChart100 circle {
+  fill: var(--primary-color); /* L-points dyal l-graph */
+}
+#svgChart100 line {
+  stroke: var(--card-border); /* L-khyout */
+}
+#svgChart100 text {
+  fill: var(--text-color); /* L-ktaba dyal l-graph */
+  font-family: var(--font-body);
+}
+#svgChart100 circle[fill="none"] {
+  stroke: var(--card-border); /* L-dwayer l-kbira */
+}
+
+
+#svgChart200 rect {
+  fill: var(--primary-color); /* L-bars dyal l-XP */
+  transition: fill 0.2s;
+}
+#svgChart200 rect:hover {
+  fill: #fff; /* Kay wello bydin 3la hover */
+  filter: drop-shadow(0 0 10px var(--primary-glow));
+}
+
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.barinfo {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 20px;
+  min-height: 40px;
+}
+
+.barinfo .projectname {
+  font-weight: 600;
+  color: var(--text-color);
+}
+.barinfo .projectxp {
+  font-weight: 700;
+  color: var(--primary-color); /* Hta howa b l-lon jdid */
+  margin-left: 8px;
+}
+
+/* XP Info Box */
+#XPINFO {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(10px);
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px var(--primary-glow); /* Hta hiya glowing */
+  z-index: 1000;
+}
+
+#XPINFO > div {
+  text-align: left;
+}
+
+#XPINFO h1 {
+  font-family: var(--font-title);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+#XPINFO span {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-shadow: 0 0 10px var(--primary-glow);
+}
+#XPINFO .User span {
+  color: var(--text-color);
+  font-size: 1rem;
+  text-shadow: none;
+}
+
+/* Footer */
+.Powerdby {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.85rem;
+}
+.Powerdby a {
+  color: #888;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.Powerdby a:hover {
+  color: var(--primary-color);
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .container-login {
+    grid-template-columns: 1fr;
+  }
+  .left {
+    display: none;
+  }
+  .Container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 16px;
+    flex-direction: column;
+    gap: 10px;
+    position: static;
+  }
+  .nav {
+    width: 100%;
+    justify-content: space-around;
+  }
+  .nav-btn {
+    flex-grow: 1;
+    text-align: center;
+    padding: 8px 10px;
+  }
+  .Container {
+    padding: 10px;
+  }
+  #XPINFO {
+    display: none;
+  }
+  .profile-xp {
+    display: flex;
+  }
+}
+
+/* Animations */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profile-xp {
+    display: none;
+}
