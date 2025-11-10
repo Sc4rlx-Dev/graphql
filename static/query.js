@@ -27,3 +27,17 @@ export function query() {
   }
 }
 `};
+
+
+export const GET_XP = `{
+  transaction_aggregate(
+    where: {type: {_eq: "xp"}, eventId: {_eq: 41}}
+    order_by: {createdAt: desc}
+  ) {
+    aggregate {
+      sum {
+        amount
+      }
+    }
+  }
+}`;

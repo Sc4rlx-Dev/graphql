@@ -2,7 +2,7 @@ export let Data = null
 import { ce, div, button, input } from "./createlem.js"
 import { GenerateToken } from "./api.js"
 import { Auth } from "./auth.js"
-import { query } from "./query.js"
+import { query , GET_XP } from "./query.js"
 
 export function login() {
     const body = document.body
@@ -51,8 +51,9 @@ export async function Homepage() {
     body.removeAttribute('class')
     body.innerHTML = "<h1>Loading...</h1>" 
 
-    const userData = await fetchUserData() 
-    
+    const userData = await fetchUserData()
+    const Xp  =  await fetchxp()    
+     const Xpamount = (Xp.transaction_aggregate.aggregate.sum.amount/1000)   
     if (!userData) {
         login()
         return
@@ -64,12 +65,47 @@ export async function Homepage() {
 
     const header = createHeader()
     const dashboard = createDashboardContainer()
-    const xpInfoBox = XpAmount()
+    const xpInfoBox = XpAmount(Xpamount)
     
     body.append(header, ce('br'), dashboard, xpInfoBox)
 
     CercleSvg()
-    getxps(Data)
+//   let Xp =   getxps(Data)
+//   console.log(Xp,"---------");
+  
+//        XpAmount(Xp)
+
+}
+export async function fetchxp() {
+    const savedToken = localStorage.getItem('token');
+    //if (!savedToken) handleLogout();
+
+    try {
+       const body = { query: GET_XP };
+
+        console.log(body,"--***");
+        
+
+        const response = await fetch('https://learn.zone01oujda.ma/api/graphql-engine/v1/graphql', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${savedToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        });
+
+        if (!response.ok) throw new Error('error');
+
+        const data = await response.json();
+        console.log(data);
+        
+        return data.data;
+
+    } catch (error) {
+      //  handleLogout();
+        console.error('GraphQL query error:', error);
+    }
 }
 
 async function fetchUserData() {
@@ -290,6 +326,7 @@ function CercleSvg() {
 }
 function getxps(data) {
     let xps = data.user[0].xps
+
     XPS = xps.filter((xp) => (!xp.path.includes("piscine-") || xp.path == "/oujda/module/piscine-js")).map(xp => xp.amount).reduce((a, b) => a + b, 0)
     let xpsAMount = xps.filter((xp) => (!xp.path.includes("piscine") && xp.path.split("/").length == 4)).filter((xp) => xp.amount > 0)
     let somme = parseInt(xpsAMount.map(xp => xp.amount).reduce((a, b) => a + b, 0))
@@ -342,23 +379,22 @@ function getxps(data) {
 
     section.innerHTML = ""
     section.append(svg)
+    return somme
 }
 
 window.addEventListener("resize", () => {
     CercleSvg()
     getxps(Data)
 })
-const dataa = await fetchUserData() 
-let XPS = dataa.user[0].xps
-console.log(XPS)
 
-function XpAmount() {
+function XpAmount(XPS) {
+    
     let Container = document.createElement("div")
     Container.setAttribute("id", "XPINFO")
     Container.append(
         div("XpAmount").append(
-            ce('h1', '', 'Xp Amount'),
-            ce('span', '', `${Math.round(XPS / 1000)}KB`)
+            ce('h1', ',', 'Xp Amount'),
+            ce('span', '', `${Math.round(XPS )}KB`)
         ),
         div("User").append(
             ce('h1', '', 'Login'),
