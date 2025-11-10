@@ -348,8 +348,10 @@ window.addEventListener("resize", () => {
     CercleSvg()
     getxps(Data)
 })
+const dataa = await fetchUserData() 
+let XPS = dataa.user[0].xps
+console.log(XPS)
 
-let XPS = 0
 function XpAmount() {
     let Container = document.createElement("div")
     Container.setAttribute("id", "XPINFO")
