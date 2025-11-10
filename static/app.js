@@ -31,7 +31,7 @@ function createLoginForm() {
         ce('img', '').setAtr('src', './assets/imgs/login_img.svg').setAtr('alt', 'Login Image')
     )
     const right = div('right').append(
-        ce('h2', '', 'Member Login'),
+        ce('h2', '', 'Login'),
         input('email', 'Email'),
         input('password', 'Password'),
         errorP, 
