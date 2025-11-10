@@ -248,7 +248,7 @@ body {
   font-family: var(--font-body);
 }
 #svgChart100 circle[fill="none"] {
-  stroke: #ff00cc; /* Changed to pink for large circles */
+  stroke: #000000; /* Changed to pink for large circles */
 }
 
 
@@ -503,6 +503,7 @@ svg {
 
 /* XP / Username (f mobile) */
 .profile-xp {
+    margin: 10px;
   /* display: none; */ /* 7ayyedt hada bach yban */
   grid-column: 1 / -1;
   display: grid;
@@ -510,6 +511,7 @@ svg {
   gap: 20px;
 }
 .profile-xp .Xp p {
+  margin: 10px;
   font-family: var(--font-body, 'Inter', sans-serif);
   font-size: 0.9rem;
   color: var(--text-secondary, #aaaaaa);

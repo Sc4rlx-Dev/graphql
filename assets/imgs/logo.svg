@@ -1,18 +1,27 @@
 <svg width="150" height="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 40">
+    <!-- 
+      Hna zedna 'text-shadow' qwi kter bach yban l-glow mzyan.
+      Kan 3tiwh 2 dyal l-shadows, wa7d qrib (5px) o wa7d b3id (15px).
+    -->
+    <style>
+      .glow-text {
+        fill: #00ffff;
+        font-family: Orbitron, sans-serif;
+        font-weight: 700;
+        /* Hada huwa l-Glow effect: */
+        text-shadow: 0 0 4px #00ffff, 
+                     0 0 1px #00ffff;
+      }
+    </style>
+    
     <text x="5" y="30" 
-          font-family="Orbitron, sans-serif" 
           font-size="30" 
-          font-weight="700" 
-          fill="#00ffff" 
-          text-shadow="0 0 10px rgba(0, 255, 255, 0.3)">
+          class="glow-text">
         graph
     </text>
     <text x="95" y="35" 
-          font-family="Orbitron, sans-serif" 
           font-size="18" 
-          font-weight="700" 
-          fill="#00ffff" 
-          text-shadow="0 0 10px rgba(0, 255, 255, 0.3)">
+          class="glow-text">
         QL
     </text>
 </svg>
