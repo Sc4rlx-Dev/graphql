@@ -286,9 +286,10 @@ function CercleSvg() {
         const offsetY = 10 * Math.sin(angle)
         label.setAttribute("x", x + offsetX)
         label.setAttribute("y", y + offsetY)
-        label.setAttribute("font-size", "10")
+        label.setAttribute("font-size", "16")
         label.setAttribute("text-anchor", "middle")
         label.setAttribute("alignment-baseline", "middle")
+        label.setAttribute("font-weight", "600")
         circle.addEventListener("mouseover", () => {
             label.textContent = type
         })
