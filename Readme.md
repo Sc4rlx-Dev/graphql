@@ -1,33 +1,31 @@
 # GraphQL Service
 
 Minimal GraphQL API.
+- Host page: https://scarlx-graphql.netlify.app/
 
-- Requirements: Node.js 18+, npm or yarn
-- Install: npm install
-- Dev: npm run dev (default http://localhost:4000/graphql)
-- Build: npm run build
-- Start: npm run start
-- Host page: https://graphql-scarlx.netlify.app/
-- Test: npm test
+## Usage and Concepts
 
-Example query:
+This project provides a minimal GraphQL API. You can interact with it by sending GraphQL queries to the host page.
+
+### What is GraphQL?
+
+GraphQL is a query language for your API, and a server-side runtime for executing queries by using a type system you define for your data. It's designed to make APIs fast, flexible, and developer-friendly.
+
+Instead of making multiple REST calls to fetch data, with GraphQL, you send a single query to retrieve exactly what you need.
+
+### How to use this API
+
+You can use any GraphQL client (like GraphiQL, Postman, or a simple `fetch` request in JavaScript) to send queries to the host page.
+
+Here's an example query to check the health of the service:
+
 ```graphql
 query {
     health
 }
 ```
 
-cURL:
-```bash
-curl -X POST http://localhost:4000/graphql \
-    -H "Content-Type: application/json" \
-    -d '{"query":"{ health }"}'
-```
-
-Notes:
-- Configure env via .env (copy .env.example if present)
-- Adjust port and CORS in server config
-- Open GraphiQL/Playground at /graphql if enabled
+This query asks for the `health` field, which typically returns a simple status like "ok" if the service is running correctly.
 
 Resources:
 - [GraphQL — spec.graphql.org](https://spec.graphql.org/)
